@@ -5,6 +5,7 @@ import javax.mail.MessagingException;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,9 @@ public class MyJobTwo extends QuartzJobBean {
 	
 	@Autowired
 	private SmtpMailSender smtpMailSender;
+	
+	@Value("${mailTo}")
+	private String mail;
 		
 	public MyJobTwo() {
 		super();
@@ -25,7 +29,7 @@ public class MyJobTwo extends QuartzJobBean {
 			throws JobExecutionException {
 		System.out.println("Mail being send");
 		try {
-			smtpMailSender.send("youremail@gmail.com", "Test mail from cronjob", "Howdy");
+			smtpMailSender.send(mail, "Test mail from cronjob", "Howdy");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
