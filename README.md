@@ -1,2 +1,2 @@
 # spring-quartz
-automated email sending scheduler
+automated email sending spring quartz scheduler
